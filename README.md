@@ -10,6 +10,21 @@ The project utilizes Docker to orchestrate both microservices within a single in
 
 Ensure that you have [Docker](https://www.docker.com/get-started) installed on your system before proceeding.
 
+### Environment Configuration
+
+Before starting the Docker containers, create a `.env` file inside the `server` directory and set the following required environment variables:
+
+```env
+SERVER_PORT=3000
+POSTGRES_USER=your_username
+POSTGRES_PASSWORD=your_password
+POSTGRES_DB=reponex
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+```
+
+Replace `your_username` and `your_password` with the desired credentials for accessing the PostgreSQL database.
+
 ### Steps to Run the Application
 
 1. **Clone the Repository:**
