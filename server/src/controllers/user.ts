@@ -5,7 +5,13 @@ import db from "../db/pool";
 // GET /api/users
 const getAllUsers = async (_req: Request, res: Response) => {
     try {
-        const result = await db.query('SELECT id, username, email FROM users')
+        await db.query(`CREATE TABLE IF NOT EXISTS users (
+            id VARCHAR(255) PRIMARY KEY,
+            username TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL
+        )`);
+
+        const result = await db.query('SELECT id, username FROM users')
         const users = result.rows;
         res.send(users);
     } catch (error) {
