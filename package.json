@@ -1,0 +1,13 @@
+{
+  "name": "reponex",
+  "version": "1.0.0",
+  "description": "Central hub facilitating open-source collaboration and coordination",
+  "repository": "https://github.com/BugReportOnWeb/reponex.git",
+  "license": "GPL-3.0",
+  "scripts": {
+    "docker:up": "docker compose up",
+    "docker:down": "docker compose down",
+    "docker:start": "docker compose start",
+    "docker:stop": "docker compose stop"
+  }
+}
