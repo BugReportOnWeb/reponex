@@ -1,5 +1,4 @@
 FROM node:21-slim
-ENV PORT=3000
 WORKDIR /server
 COPY . .
 RUN yarn
