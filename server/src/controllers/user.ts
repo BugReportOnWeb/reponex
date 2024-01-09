@@ -1,15 +1,19 @@
 import { Request, Response } from "express"
-import db from "../db/pool";
-import { createTable } from "../db/queries";
 import { SafeUser, User } from "../types/user";
 import { generateUUID } from "../lib/util";
+import { createTable } from "../db/queries";
+import db from "../db/pool";
 
 // FOR DEBUGGING PURPOSE - REMOVE LATER
 // GET /api/users
 const getAllUsers = async (_req: Request, res: Response) => {
     try {
         await createTable();
-        const result = await db.query('SELECT id, username FROM users')
+        const result = await db.query(`
+            SELECT id, username 
+            FROM users
+        `);
+
         const users = result.rows;
         res.send(users);
     } catch (error) {
@@ -40,13 +44,18 @@ const loginUser = async (req: Request, res: Response) => {
     if (password) password = password.trim();
 
     if (!username || !password) {
-        const error = 'Invalid data: Provide both username and password';
+        const fields = 'username, password';
+        const error = `Invalid data: Provide all details (${fields})`;
         return res.status(400).send({ error });
     }
 
     try {
         await createTable();
-        const result = await db.query('SELECT * FROM users WHERE username = $1', [username]);
+        const result = await db.query(`
+            SELECT * FROM users 
+            WHERE username = $1
+        `, [username]);
+
         if (result.rows.length < 1) {
             const error = 'User doesn\'t exist';
             return res.status(404).send({ error });
@@ -77,7 +86,8 @@ const registerUser = async (req: Request, res: Response) => {
     if (confirmPassword) confirmPassword = confirmPassword.trim();
 
     if (!username || !password || !confirmPassword) {
-        const error = 'Invalid data: Provide all username and password, and confirmPassword fields.';
+        const fields = 'username, password, confirmPassword';
+        const error = `Invalid data: Provide all details (${fields})`;
         return res.status(400).send({ error });
     }
 
@@ -88,16 +98,27 @@ const registerUser = async (req: Request, res: Response) => {
 
     try {
         await createTable();
-        const result = await db.query('SELECT * FROM users WHERE username = $1', [username]);
+        const result = await db.query(`
+            SELECT * FROM users 
+            WHERE username = $1
+        `, [username]);
+
         if (result.rows.length > 0) {
             const error = 'User already registered';
-            // Check on status here
             return res.status(409).send({ error });
         }
 
         const userDetails: User = { id: generateUUID(), username, password }
-        await db.query('INSERT INTO users VALUES ($1, $2, $3)', [userDetails.id, userDetails.username, userDetails.password]);
-        const userResult = await db.query('SELECT id, username FROM users WHERE username = $1', [userDetails.username]);
+        await db.query(`
+            INSERT INTO users 
+            VALUES ($1, $2, $3)
+        `, [userDetails.id, userDetails.username, userDetails.password]);
+
+        const userResult = await db.query(`
+            SELECT id, username
+            FROM users 
+            WHERE username = $1
+        `, [userDetails.username]);
         const newUser: SafeUser = userResult.rows[0];
 
         res.send(newUser);
@@ -106,7 +127,6 @@ const registerUser = async (req: Request, res: Response) => {
             res.status(500).send({ error: error.message });
         }
     }
-
 }
 
 export {
