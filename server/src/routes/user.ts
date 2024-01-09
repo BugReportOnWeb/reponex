@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { getAllUsers, loginUser, registerUser } from "../controllers/user";
+import { getAllUsers, loginUser, registerUser, truncateUsers } from "../controllers/user";
 
 const router = Router();
 
 router.get('/', getAllUsers);
+router.delete('/', truncateUsers);
 router.post('/login', loginUser);
 router.post('/register', registerUser);
 
