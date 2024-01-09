@@ -1,12 +1,8 @@
 import React from "react";
 import { FaGithub } from "react-icons/fa";
-import {
-  githubRepo,
-  copyrightYear
-} from "../utils/config";
+import { githubRepo, copyrightYear } from "../utils/config";
 
 const Footer = () => {
-
   const handleMouseEnter = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.currentTarget.style.color = "white";
   };
@@ -16,7 +12,7 @@ const Footer = () => {
   };
 
   return (
-    <main className="w-full h-12 flex items-center justify-center font-heading">
+    <main className="w-full h-28 flex items-center justify-center font-heading">
       <a href={githubRepo} target="_blank">
         <FaGithub
           style={{
@@ -28,9 +24,9 @@ const Footer = () => {
           onMouseLeave={handleMouseLeave}
         />
       </a>
-      <span className="text-slate-400 mx-2">&copy; {copyrightYear} .</span>
-      <span className="text-slate-400">All rights reserved .</span>
-      <span className="text-slate-400 mx-2">Made with ❤️.</span>
+      <span className="text-slate-300 mx-2">&copy; {copyrightYear} .</span>
+      <span className="text-slate-300">All rights reserved .</span>
+      <span className="text-slate-300 mx-2">Made with ❤️.</span>
     </main>
   );
 };
