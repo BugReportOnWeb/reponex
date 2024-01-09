@@ -5,7 +5,7 @@ import cors from 'cors';
 import { logging } from './middlewares/logging';
 import { userRoutes } from './routes/user';
 
-const PORT = process.env.PORT ?? 3000;
+const SERVER_PORT = process.env.SERVER_PORT ?? 3000;
 const app = express();
 
 // Middlewares
@@ -16,6 +16,6 @@ app.use(logging);
 // Routes
 app.use('/api/users', userRoutes);
 
-app.listen(+PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+app.listen(+SERVER_PORT, () => {
+    console.log(`Server listening on port ${SERVER_PORT}`);
 })
