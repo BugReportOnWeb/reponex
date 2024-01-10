@@ -1,5 +1,5 @@
 import { FaGithub } from "react-icons/fa";
-import { githubRepo, copyrightYear } from "../utils/config";
+import { copyrightYear, githubRepo } from "../lib/config";
 
 const Footer = () => {
     return (
