@@ -1,5 +1,3 @@
-import React from "react";
-
 const App = () => {
   const sendRequest = async () => {
     try {

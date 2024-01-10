@@ -11,7 +11,7 @@ import Login from "./pages/Login.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <BrowserRouter>
-            <main className="max-w-5xl mx-auto min-h-screen">
+            <div className="max-w-6xl mx-auto min-h-screen">
                 <NavBar />
                 <Routes>
                     <Route path="/" element={<App />} />
@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                     <Route path="/login" element={<Login />} />
                 </Routes>
                 <Footer />
-            </main>
+            </div>
         </BrowserRouter>
     </React.StrictMode>,
 );
