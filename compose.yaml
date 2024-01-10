@@ -19,6 +19,7 @@ services:
     restart: unless-stopped
   client:
     container_name: reponex-client
+    env_file: ./client/.env
     build: ./client
     ports:
       - "8000:5173"
