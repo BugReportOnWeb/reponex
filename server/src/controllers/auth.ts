@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { SafeUser, User } from "../types/user";
-import { generateUUID } from "../lib/util";
+import { createToken, generateUUID } from "../lib/utils";
 import { createTable } from "../db/queries";
 import db from "../db/pool";
 
@@ -36,8 +36,10 @@ const loginUser = async (req: Request, res: Response) => {
             return res.status(401).send({ error });
         }
 
-        const safeUser: SafeUser = { id: user.id, username: user.username };
-        res.send(safeUser);
+        const token = createToken(user.username);
+        const response = { username: user.username, token }
+
+        res.send(response);
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).send({ error: error.message });
@@ -89,7 +91,10 @@ const registerUser = async (req: Request, res: Response) => {
         `, [userDetails.username]);
         const newUser: SafeUser = userResult.rows[0];
 
-        res.send(newUser);
+        const token = createToken(newUser.username);
+        const response = { username: newUser.username, token }
+
+        res.send(response);
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).send({ error: error.message });
