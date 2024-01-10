@@ -11,7 +11,7 @@ import Login from "./pages/Login.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <BrowserRouter>
-            <div className="max-w-6xl mx-auto min-h-screen">
+            <div className="relative max-w-6xl mx-auto min-h-screen">
                 <NavBar />
                 <Routes>
                     <Route path="/" element={<App />} />
