@@ -1,22 +1,16 @@
-const App = () => {
-    const sendRequest = async () => {
-        try {
-            const res = await fetch("http://localhost:3000/api/users");
-            const data = await res.json();
-            console.log(data);
-        } catch (error) {
-            if (error instanceof Error) {
-                console.log(error.message);
-            }
-        }
-    };
+import { Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
+const App = () => {
     return (
-        <div>
-            <h1>Hello World!</h1>
-            <button onClick={sendRequest}>Send Request</button>
-        </div>
-    );
-};
+        <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+        </Routes>
+    )
+}
 
 export default App;

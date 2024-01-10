@@ -9,7 +9,7 @@ const Footer = () => {
             </a>
             &copy; {copyrightYear} RepoNex. All rights reserved. Made with ❤️
         </div>
-    );
-};
+    )
+}
 
 export default Footer;
