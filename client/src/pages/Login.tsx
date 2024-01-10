@@ -1,6 +1,11 @@
-import React, { useState, SyntheticEvent } from "react";
+import { useState, SyntheticEvent } from "react";
 
 const server = import.meta.env.VITE_SERVER;
+
+interface FormData {
+    username: string;
+    password: string;
+}
 
 const Login = () => {
   const [username, setUserName] = useState("");
@@ -10,13 +15,14 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const formData = new FormData();
-      formData.append("username", username as string);
-      formData.append("password", password as string);
+      const formData: FormData = {
+        username: username,
+        password: password,
+      };
 
       const response = await fetch(`${server}/api/users/login`, {
         method: "POST",
-        body: formData,
+        body: JSON.stringify(formData),
         headers: {
           "Content-Type": "application/json",
         },
