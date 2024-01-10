@@ -16,6 +16,7 @@ Before starting the Docker containers, create a `.env` file inside the `server` 
 
 ```env
 SERVER_PORT=3000
+JWT_SECRET=your_jwt_secret
 POSTGRES_USER=your_username
 POSTGRES_PASSWORD=your_password
 POSTGRES_DB=reponex
@@ -23,7 +24,7 @@ POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 ```
 
-Replace `your_username` and `your_password` with the desired credentials for accessing the PostgreSQL database.
+Replace `your_jwt_secret` with a secure secret for JWT authentication/authorization and `your_username` and `your_password` with the desired credentials for accessing the PostgreSQL database.
 
 ### Steps to Run the Application
 
