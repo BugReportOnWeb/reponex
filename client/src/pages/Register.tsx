@@ -1,6 +1,13 @@
 import { useState, SyntheticEvent } from "react";
 
 const server = import.meta.env.VITE_SERVER;
+
+interface FormData {
+    username: string;
+    password: string;
+    confirmPassword: string;
+}
+
 const Register = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -15,12 +22,14 @@ const Register = () => {
     }
 
     try {
-      const formData = new FormData();
-      formData.append("username", username as string);
-      formData.append("password", password as string);
+      const formData: FormData = {
+        username: username,
+        password: password,
+        confirmPassword: confirmPassword
+    };
       const response = await fetch(`${server}/api/users/register`, {
         method: "POST",
-        body: formData,
+        body: JSON.stringify(formData),
         headers: {
           "Content-Type": "application/json",
         },
@@ -48,7 +57,7 @@ const Register = () => {
     <main className="min-h-[73vh] flex items-center justify-center">
       <div className="w-80 rounded-2xl bg-slate-900">
         <div className="flex flex-col gap-2 p-8">
-          <p className="text-center text-3xl text-gray-300 mb-4">Login</p>
+          <p className="text-center text-3xl text-gray-300 mb-4">Register</p>
           <input
             type="username"
             value={username}
@@ -78,7 +87,7 @@ const Register = () => {
             onClick={handleSubmit}
             className="inline-block cursor-pointer rounded-md bg-gray-700 px-4 py-3.5 text-center text-sm font-semibold uppercase text-white transition duration-200 ease-in-out hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 active:scale-95"
           >
-            Login
+            Register
           </button>
         </div>
       </div>

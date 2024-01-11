@@ -1,13 +1,37 @@
 import { FiLogIn } from "react-icons/fi";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { isTokenValid } from "../lib/isTokenValid";
 
 const NavBar = () => {
     const { pathname } = useLocation();
+    const [isValidSession, setIsValidSession] = useState(false);
+
+    useEffect(() => {
+    const fetchData = async () => {
+      const isTokenExist = localStorage.getItem("token");
+      if (isTokenExist == null) {
+        return;
+      }
+
+      try {
+        const data = await isTokenValid();
+        setIsValidSession(data.valid);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
 
     return (
         <div className="p-5 w-full flex items-center justify-between">
             <Link to="/" className="font-bold text-2xl text-[#ededed] select-none">RepoNex</Link>
+
+        {isValidSession ? (
+        <div>Profile</div>
+        ) : (
 
             <div className="h-full flex gap-6">
                 <Link to="/login" className={`
@@ -25,6 +49,7 @@ const NavBar = () => {
                     <span className="text-[0.9375rem]">Register</span>
                 </Link>
             </div>
+        )}
         </div>
     )
 }
