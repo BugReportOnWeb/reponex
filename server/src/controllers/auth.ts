@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { SafeUser, User } from "../types/user";
 import { createToken, generateUUID } from "../lib/utils";
 import { createTable } from "../db/queries";
+import { compare, genSalt, hash } from 'bcrypt';
 import db from "../db/pool";
 
 // POST /api/users/login -d { username, password }
@@ -31,7 +32,8 @@ const loginUser = async (req: Request, res: Response) => {
 
         const user: User = result.rows[0];
 
-        if (user.password !== password) {
+        const correctPassword = await compare(password, user.password);
+        if (!correctPassword) {
             const error = 'Wrong password';
             return res.status(401).send({ error });
         }
@@ -78,7 +80,10 @@ const registerUser = async (req: Request, res: Response) => {
             return res.status(409).send({ error });
         }
 
-        const userDetails: User = { id: generateUUID(), username, password }
+        const salt = await genSalt(10);
+        const hashedPassword = await hash(password, salt);
+        const userDetails: User = { id: generateUUID(), username, password: hashedPassword }
+
         await db.query(`
             INSERT INTO users 
             VALUES ($1, $2, $3)
