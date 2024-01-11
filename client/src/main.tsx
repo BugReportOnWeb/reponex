@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import NavBar from "./components/NavBar.tsx";
 import Footer from "./components/Footer.tsx";
 import { BrowserRouter } from "react-router-dom";
-import AuthUserContextProvider from "./context/AuthUserContext.tsx";
+import { AuthUserContextProvider } from "./context/AuthUserContext.tsx";
 import App from "./App.tsx";
 import "./index.css";
 
