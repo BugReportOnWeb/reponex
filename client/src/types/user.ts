@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 type GitHubUser = {
     login: string;
     id: number;
@@ -33,4 +35,9 @@ type GitHubUser = {
     updated_at: string;
 }
 
-export type { GitHubUser };
+type AuthUserContextType = {
+    authUser: string;
+    setAuthUser: Dispatch<SetStateAction<string>>;
+}
+
+export type { GitHubUser, AuthUserContextType };
