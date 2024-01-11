@@ -1,7 +1,13 @@
 import { Request, Response } from "express"
 import { createTable } from "../db/queries";
-import db from "../db/pool";
 import { SafeUser } from "../types/user";
+import db from "../db/pool";
+
+// GET /api/users/me
+const getMe = (req: Request, res: Response) => {
+    const username = req.username;
+    res.send({ username });
+}
 
 // FOR DEBUGGING PURPOSE - REMOVE LATER
 // GET /api/users
@@ -22,6 +28,8 @@ const getAllUsers = async (_req: Request, res: Response) => {
     }
 }
 
+// FOR DEBUGGING PURPOSE - REMOVE LATER
+// GET /api/users/:id
 const getSingleUser = async (req: Request, res: Response) => {
     const { id } = req.params;
 
@@ -61,6 +69,7 @@ const truncateUsers = async (_req: Request, res: Response) => {
 }
 
 export {
+    getMe,
     getAllUsers,
     getSingleUser,
     truncateUsers
