@@ -12,17 +12,23 @@ Ensure that you have [Docker](https://www.docker.com/get-started) installed on y
 
 ### Environment Configuration
 
-Before starting the Docker containers, create a `.env` file inside the `server` directory and set the following required environment variables:
+Before starting the Docker containers, create a `.env` file inside the `server` and `client` directories and set the following required environment variables:
 
-```env
-SERVER_PORT=3000
-JWT_SECRET=your_jwt_secret
-POSTGRES_USER=your_username
-POSTGRES_PASSWORD=your_password
-POSTGRES_DB=reponex
-POSTGRES_HOST=localhost
-POSTGRES_PORT=5432
-```
+- For client:
+    ```env
+    VITE_SERVER=http://localhost:3000
+    ```
+
+- For server:
+    ```env
+    SERVER_PORT=3000
+    JWT_SECRET=your_jwt_secret
+    POSTGRES_USER=your_username
+    POSTGRES_PASSWORD=your_password
+    POSTGRES_DB=reponex
+    POSTGRES_HOST=localhost
+    POSTGRES_PORT=5432
+    ```
 
 Replace `your_jwt_secret` with a secure secret for JWT authentication/authorization and `your_username` and `your_password` with the desired credentials for accessing the PostgreSQL database.
 
