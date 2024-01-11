@@ -12,6 +12,7 @@ const Dashboard = () => {
     };
 
     return (
+        // TODO: Same side padding for all (DRY in App)
         <div className='p-5'>
             <h1>Hello World!</h1>
             <button onClick={sendRequest}>Send Request</button>
