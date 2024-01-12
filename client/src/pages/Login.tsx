@@ -1,4 +1,7 @@
-import { useState, SyntheticEvent } from "react";
+import { useState, SyntheticEvent, useContext } from "react";
+import { AuthUserContext } from "../context/AuthUserContext";
+import { AuthUserContextType } from "../types/user";
+import { Link } from "react-router-dom";
 
 const server = import.meta.env.VITE_SERVER;
 
@@ -8,77 +11,77 @@ interface FormData {
 }
 
 const Login = () => {
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+    const { setAuthUser } = useContext(AuthUserContext) as AuthUserContextType;
 
-  const handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
+    const [username, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState('');
 
-    try {
-      const formData: FormData = {
-        username: username,
-        password: password,
-      };
+    const handleSubmit = async (e: SyntheticEvent) => {
+        e.preventDefault();
 
-      const response = await fetch(`${server}/api/users/login`, {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+        const formData: FormData = { username, password };
 
-      // Check if the request was successful
-      if (response.ok) {
-        const result = await response.json();
+        try {
+            const res = await fetch(`${server}/api/users/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData)
+            });
 
-        localStorage.setItem("token", result.token);
+            const data = await res.json();
 
-        // redirecting to Home page after Login
-        window.location.replace("/");
-      } else {
-        // Handle Login failure
-        console.error("Login failed");
-      }
+            // Check if the request was successful
+            if (res.ok) {
+                localStorage.setItem("token", data.token);
+                setAuthUser(data.username);
+            }
 
-      console.log(response.json());
-    } catch (error) {
-      // Handle network or other errors
-      console.error("Error during login:", error);
-    }
-  };
-  return (
-    <main className="min-h-[73vh] flex items-center justify-center">
-      <div className="w-80 rounded-2xl bg-slate-900">
-        <div className="flex flex-col gap-2 p-8">
-          <p className="text-center text-3xl text-gray-300 mb-4">Login</p>
-          <input
-            type="username"
-            value={username}
-            onChange={(e) => setUserName(e.target.value)}
-            className="bg-slate-900 w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:ring-offset-gray-800"
-            placeholder="UserName"
-            required
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="bg-slate-900 w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:ring-offset-gray-800"
-            placeholder="Password"
-            required
-          />
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className="inline-block cursor-pointer rounded-md bg-gray-700 px-4 py-3.5 text-center text-sm font-semibold uppercase text-white transition duration-200 ease-in-out hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 active:scale-95"
-          >
-            Login
-          </button>
+            if (!res.ok) {
+                setError(data.error);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    return (
+        <div className="absolute h-[calc(100vh-8.54rem)] w-full flex items-center justify-center">
+            <div className='flex flex-col gap-5'>
+                <h1 className='text-3xl font-semibold text-center'>Login Account</h1>
+                <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-4'>
+                    <div className='flex flex-col gap-4 w-full'>
+                        <input
+                            type="username"
+                            autoComplete="username"
+                            name="username"
+                            placeholder="Username"
+                            value={username}
+                            onChange={e => setUserName(e.target.value)}
+                            className='rounded-md text-sm border border-[#27272a] h-10 py-2 px-3 bg-transparent placeholder:text-[#7f8ea3] placeholder:text-sm focus:outline-none focus:outline-offset-2 focus:outline-[#27272a]'
+                            required
+                        />
+                        <input
+                            type="password"
+                            autoComplete="password"
+                            name="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            className='rounded-md text-sm border border-[#27272a] h-10 py-2 px-3 bg-transparent placeholder:text-[#7f8ea3] placeholder:text-sm focus:outline-none focus:outline-offset-2 focus:outline-[#27272a]'
+                            required
+                        />
+                    </div>
+                    <button className='inline-flex w-full whitespace-nowrap items-center justify-center px-4 py-2 border border-[#27272a] font-medium text-sm rounded-md transition-colors cursor-pointer bg-white text-[#27272a] hover:bg-white/90'>
+                        Login
+                    </button>
+                </form>
+                <h1 className='text-sm text-[#7f8ea3] text-center'>Don't have an account? <Link className='underline underline-offset-4 decoration-[#e1e7ef]/40 hover:decoration-[#e1e7ef]/80' to='/register'>Register Now</Link></h1>
+                <div className='text-red-400 text-sm text-center -mt-2'>{error}</div>
+            </div>
         </div>
-      </div>
-    </main>
-  );
+    );
 };
 
 export default Login;
