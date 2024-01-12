@@ -9,9 +9,12 @@ type MessageBubbleProps = {
 const MessageBubble = ({ messageData, messageDataLogs, username }: MessageBubbleProps) => {
     const isUser = messageData.username === username;
     const currentMessageIndex = messageDataLogs.indexOf(messageData);
-    let showUsername = false;
 
-    if (currentMessageIndex > 0) {
+    let showUsername: boolean;
+
+    if (currentMessageIndex === 0) {
+        isUser ? showUsername = false : showUsername = true;
+    } else {
         const previousMessage = messageDataLogs[currentMessageIndex - 1];
         showUsername = !isUser && !(messageData.username === previousMessage.username);
     }
