@@ -1,45 +1,25 @@
 import { FiLogIn } from "react-icons/fi";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
-import { isTokenValid } from "../lib/isTokenValid";
+import { useContext } from "react";
 import { AuthUserContext } from "../context/AuthUserContext";
 import { AuthUserContextType } from "../types/user";
 
 const NavBar = () => {
     const { pathname } = useLocation();
-    const { authUser, setAuthUser } = useContext(AuthUserContext) as AuthUserContextType;
-    const [isValidSession, setIsValidSession] = useState(false);
-
-    useEffect(() => {
-        // Validating user jwt token and fetching username
-        const fetchData = async () => {
-            const isTokenExist = localStorage.getItem("token");
-            if (!isTokenExist) return;
-
-            try {
-                const data = await isTokenValid();
-                setIsValidSession(data.valid);
-                if (data.valid) setAuthUser(data.username);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, []);
+    const { authUser } = useContext(AuthUserContext) as AuthUserContextType;
 
     return (
         <div className="p-5 w-full flex items-center justify-between">
             <Link to="/" className="font-bold text-2xl text-[#ededed] select-none">RepoNex</Link>
 
             <div className="h-full flex gap-6">
-                {isValidSession ? (
+                {authUser ? (
                     <>
                         <h1>{authUser}</h1>
                         <Link to="/chat" className={`
                             flex items-center gap-2 transition-colors ease-in-out hover:text-[#ededed]/80
-                            ${pathname === '/login' ? 'text-[#e1e7ef]' : 'text-[#ededed]/60'} 
+                            ${pathname === '/chat' ? 'text-[#e1e7ef]' : 'text-[#ededed]/60'} 
                         `}>
                             <h1 className="text-[0.9375rem]">Chat</h1>
                         </Link>
