@@ -14,10 +14,14 @@ const AuthUserContextProvider = ({ children }: AuthUserContextProviderProps) => 
     // Fetch the username from the /api/users/me
     const fetchUsername = async () => {
       try {
+        const token = localStorage.getItem("token");
+      if (token == null) {
+        return;
+      }
         const response = await fetch("/api/users/me", {
           method: "GET",
           headers: {
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         });
 

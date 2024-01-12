@@ -5,8 +5,8 @@ export const isTokenValid = async () => {
   const server = import.meta.env.VITE_SERVER;
 
   try {
-    const response = await fetch(`${server}/api/users/validate`, {
-      method: "POST",
+    const response = await fetch(`${server}/api/users/me`, {
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
