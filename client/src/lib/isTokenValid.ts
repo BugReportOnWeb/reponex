@@ -12,8 +12,11 @@ export const isTokenValid = async () => {
       },
     });
 
-    const data = response.ok ? { valid: true } : { valid: false };
-    return data;
+    if (response.ok) {
+      const data = await response.json();
+      return { valid: true, username: data.username };
+    }
+    return { valid: false };
   } catch (error) {
     console.error(error);
     return { valid: false };

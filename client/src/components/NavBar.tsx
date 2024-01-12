@@ -5,10 +5,12 @@ import { useState, useEffect } from "react";
 import { isTokenValid } from "../lib/isTokenValid";
 
 const NavBar = () => {
-    const { pathname } = useLocation();
-    const [isValidSession, setIsValidSession] = useState(false);
+  const { pathname } = useLocation();
+  const [isValidSession, setIsValidSession] = useState(false);
+  const [authUser, setAuthUser] = useState('');
 
-    useEffect(() => {
+  useEffect(() => {
+    // Validating user jwt token and fetching username
     const fetchData = async () => {
       const isTokenExist = localStorage.getItem("token");
       if (isTokenExist == null) {
@@ -18,6 +20,9 @@ const NavBar = () => {
       try {
         const data = await isTokenValid();
         setIsValidSession(data.valid);
+        if (data.valid) {
+          setAuthUser(data.username);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -25,33 +30,33 @@ const NavBar = () => {
     fetchData();
   }, []);
 
-    return (
-        <div className="p-5 w-full flex items-center justify-between">
-            <Link to="/" className="font-bold text-2xl text-[#ededed] select-none">RepoNex</Link>
+  return (
+    <div className="p-5 w-full flex items-center justify-between">
+      <Link to="/" className="font-bold text-2xl text-[#ededed] select-none">RepoNex</Link>
 
-        {isValidSession ? (
-        <div>Profile</div>
-        ) : (
+      {isValidSession ? (
+        <div>{authUser}</div>
+      ) : (
 
-            <div className="h-full flex gap-6">
-                <Link to="/login" className={`
+        <div className="h-full flex gap-6">
+          <Link to="/login" className={`
                     flex items-center gap-2 transition-colors ease-in-out hover:text-[#ededed]/80
                     ${pathname === '/login' ? 'text-[#e1e7ef]' : 'text-[#ededed]/60'} 
                 `}>
-                    <FiLogIn style={{ fontSize: "15px" }} />
-                    <h1 className="text-[0.9375rem]">Login</h1>
-                </Link>
-                <Link to="/register" className={`
+            <FiLogIn style={{ fontSize: "15px" }} />
+            <h1 className="text-[0.9375rem]">Login</h1>
+          </Link>
+          <Link to="/register" className={`
                     flex items-center gap-2 transition-colors ease-in-out hover:text-[#ededed]/80
                     ${pathname === '/register' ? 'text-[#e1e7ef]' : 'text-[#ededed]/60'} 
                 `}>
-                    <IoPersonAddSharp style={{ fontSize: "15px" }} />
-                    <span className="text-[0.9375rem]">Register</span>
-                </Link>
-            </div>
-        )}
+            <IoPersonAddSharp style={{ fontSize: "15px" }} />
+            <span className="text-[0.9375rem]">Register</span>
+          </Link>
         </div>
-    )
+      )}
+    </div>
+  )
 }
 
 export default NavBar;

@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
 import { AuthUserContextType } from "../types/user";
+import { isTokenValid } from "../lib/isTokenValid";
 
 type AuthUserContextProviderProps = {
   children: ReactNode;
@@ -15,22 +16,11 @@ const AuthUserContextProvider = ({ children }: AuthUserContextProviderProps) => 
     const fetchUsername = async () => {
       try {
         const token = localStorage.getItem("token");
-      if (token == null) {
-        return;
-      }
-        const response = await fetch("/api/users/me", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setAuthUser(data.username);
-        } else {
-          setAuthUser("");
+        if (token == null) {
+          return;
         }
+        const data = await isTokenValid();
+        setAuthUser(data.username);
       } catch (error) {
         setAuthUser("");
       }
