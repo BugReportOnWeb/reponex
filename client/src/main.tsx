@@ -9,14 +9,14 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <BrowserRouter>
-            <AuthUserContextProvider>
+        <AuthUserContextProvider>
+            <BrowserRouter>
                 <main className="relative max-w-6xl mx-auto min-h-screen">
                     <NavBar />
                     <App />
                     <Footer />
                 </main>
-            </AuthUserContextProvider>
-        </BrowserRouter>
+            </BrowserRouter>
+        </AuthUserContextProvider>
     </React.StrictMode>
 )
