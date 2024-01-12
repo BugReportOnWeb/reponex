@@ -3,6 +3,7 @@ import { AuthUserContext } from "../context/AuthUserContext";
 import { AuthUserContextType } from "../types/user";
 import { Link } from "react-router-dom";
 import { LoginFormData } from "../types/formData";
+import socket from "../socket/socket";
 
 const server = import.meta.env.VITE_SERVER;
 
@@ -32,6 +33,7 @@ const Login = () => {
             if (res.ok) {
                 localStorage.setItem("token", data.token);
                 setAuthUser(data.username);
+                socket.connect();
             }
 
             if (!res.ok) {

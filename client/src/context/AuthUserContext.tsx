@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
 import { AuthUserContextType } from "../types/user";
 import isTokenValid from "../lib/isTokenValid";
+import socket from "../socket/socket";
 
 type AuthUserContextProviderProps = {
     children: ReactNode;
@@ -34,6 +35,7 @@ const AuthUserContextProvider = ({ children }: AuthUserContextProviderProps) => 
                 const data = await isTokenValid();
                 if (data.valid && data.username) {
                     setAuthUser(data.username);
+                    socket.connect();
                 }
             } catch (error) {
                 console.error(error);
