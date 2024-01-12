@@ -16,12 +16,11 @@ const NavBar = () => {
             <div className="h-full flex gap-6">
                 {authUser ? (
                     <>
-                        <h1>{authUser}</h1>
                         <Link to="/chat" className={`
                             flex items-center gap-2 transition-colors ease-in-out hover:text-[#ededed]/80
                             ${pathname === '/chat' ? 'text-[#e1e7ef]' : 'text-[#ededed]/60'} 
                         `}>
-                            <h1 className="text-[0.9375rem]">Chat</h1>
+                            <h1 className="text-[0.9375rem]">Global Chat</h1>
                         </Link>
                     </>
                 ) : (

@@ -2,14 +2,9 @@ import { useState, FormEvent, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthUserContext } from "../context/AuthUserContext";
 import { AuthUserContextType } from "../types/user";
+import { RegisterFormData } from "../types/formData";
 
 const SERVER_ORIGIN = import.meta.env.VITE_SERVER;
-
-interface FormData {
-    username: string;
-    password: string;
-    confirmPassword: string;
-}
 
 const Register = () => {
     const [username, setUserName] = useState("");
@@ -27,7 +22,7 @@ const Register = () => {
             return;
         }
 
-        const formData: FormData = {
+        const formData: RegisterFormData = {
             username: username,
             password: password,
             confirmPassword: confirmPassword
@@ -53,7 +48,7 @@ const Register = () => {
                 setError(data.error);
             }
         } catch (error) {
-            console.log("Error during Registration:", error);
+            console.error("Error during Registration:", error);
         }
     };
     return (

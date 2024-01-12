@@ -2,13 +2,9 @@ import { useState, SyntheticEvent, useContext } from "react";
 import { AuthUserContext } from "../context/AuthUserContext";
 import { AuthUserContextType } from "../types/user";
 import { Link } from "react-router-dom";
+import { LoginFormData } from "../types/formData";
 
 const server = import.meta.env.VITE_SERVER;
-
-interface FormData {
-    username: string;
-    password: string;
-}
 
 const Login = () => {
     const { setAuthUser } = useContext(AuthUserContext) as AuthUserContextType;
@@ -20,7 +16,7 @@ const Login = () => {
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        const formData: FormData = { username, password };
+        const formData: LoginFormData = { username, password };
 
         try {
             const res = await fetch(`${server}/api/users/login`, {
@@ -33,7 +29,6 @@ const Login = () => {
 
             const data = await res.json();
 
-            // Check if the request was successful
             if (res.ok) {
                 localStorage.setItem("token", data.token);
                 setAuthUser(data.username);
@@ -43,7 +38,7 @@ const Login = () => {
                 setError(data.error);
             }
         } catch (error) {
-            console.error(error);
+            console.error("Error during Login:", error);
         }
     };
     return (
