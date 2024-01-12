@@ -1,28 +1,22 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import MessageBubble from "../components/MessageBubble";
 import MessageForm from "../components/MessageForm";
 import { MessageData } from "../types/message";
-
-// type MessageBubbleProps = {
-//     messageData: MessageData;
-//     messageDataLogs: MessageData[];
-//     username: string;
-// }
-
+import { AuthUserContext } from "../context/AuthUserContext";
+import { AuthUserContextType } from "../types/user";
 
 const Chat = () => {
-    // This username will come from 'autUser' context;
-    const username = 'Dev';
     const [message, setMessage] = useState('');
     const [messageDataLogs, setMessageDataLogs] = useState<MessageData[]>([]);
     const messageLogsRef = useRef<HTMLDivElement | null>(null);
+    const { authUser } = useContext(AuthUserContext) as AuthUserContextType;
 
     const handleMessageSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const messageData: MessageData = {
             type: 'message-bubble',
-            username,
+            username: authUser,
             message
         }
 
@@ -40,6 +34,7 @@ const Chat = () => {
             behavior: 'smooth',
             block: 'end'
         });
+
     }, [messageDataLogs])
 
     return (
@@ -50,7 +45,7 @@ const Chat = () => {
                         key={index}
                         messageData={messageData}
                         messageDataLogs={messageDataLogs}
-                        username={username}
+                        username={authUser}
                     />
                 ))}
             </div>
