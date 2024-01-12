@@ -34,7 +34,6 @@ const Chat = () => {
             behavior: 'smooth',
             block: 'end'
         });
-
     }, [messageDataLogs])
 
     return (

@@ -17,10 +17,8 @@ const App = () => {
 
     return (
         <Routes>
-            <Route path='/' element={<Dashboard />} />
-            <Route path='/chat' element={<Chat />} />
-            {/* Uncomment below and comment above when dashboard UI is completed (no auth required for testing) */}
-            {/* <Route path="/" element={authUser ? <Dashboard /> : <Navigate to='/login' />} /> */}
+            <Route path="/" element={authUser ? <Dashboard /> : <Navigate to='/login' />} />
+            <Route path="/chat" element={authUser ? <Chat /> : <Navigate to='/login' />} />
             <Route path="/register" element={!authUser ? <Register /> : <Navigate to='/' />} />
             <Route path="/login" element={!authUser ? <Login /> : <Navigate to='/' />} />
         </Routes>
