@@ -1,14 +1,15 @@
 import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import MessageBubble from "../components/MessageBubble";
 import MessageForm from "../components/MessageForm";
-import { MessageData } from "../types/message";
+import { MessageData, MessageLogsContextType } from "../types/message";
 import { AuthUserContext } from "../context/AuthUserContext";
 import { AuthUserContextType } from "../types/user";
 import socket from "../socket/socket";
+import { MessageLogsContext } from "../context/MessageLogsContext";
 
 const Chat = () => {
     const [message, setMessage] = useState('');
-    const [messageDataLogs, setMessageDataLogs] = useState<MessageData[]>([]);
+    const { messageDataLogs, setMessageDataLogs } = useContext(MessageLogsContext) as MessageLogsContextType;
     const messageLogsRef = useRef<HTMLDivElement | null>(null);
     const { authUser } = useContext(AuthUserContext) as AuthUserContextType;
     const [isConnected, setIsConnected] = useState(socket.connected);
@@ -32,6 +33,9 @@ const Chat = () => {
         });
     }, [messageDataLogs])
 
+    // CHECK: All this socket shit should be on a root route for all auth pages
+    // Having it only on <Chat />, any global broadcast if made when user is not
+    // here, isn't reflected in it's local database i.e `messageDataLogs`
     useEffect(() => {
         const onConnect = () => {
             setIsConnected(true);
