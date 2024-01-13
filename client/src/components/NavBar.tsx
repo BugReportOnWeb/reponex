@@ -1,5 +1,7 @@
 import { FiLogIn } from "react-icons/fi";
 import { IoPersonAddSharp } from "react-icons/io5";
+import { BsGlobe2 } from "react-icons/bs";
+import { CiLogout } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthUserContext } from "../context/AuthUserContext";
@@ -28,9 +30,11 @@ const NavBar = () => {
                 {authUser ? (
                     <>
                         <NavLink href='/chat'>
-                            <h1 className="text-[0.9375rem]">Globe</h1>
+                            <BsGlobe2 style={{ fontSize: "15px" }} />
+                            <h1 className="text-[0.9375rem]">Chat</h1>
                         </NavLink>
                         <button onClick={logoutUser} className='flex items-center gap-2 text-[#ededed]/60 transition-colors ease-in-out hover:text-[#ededed]/80'>
+                            <CiLogout style={{ fontSize: "15px" }} />
                             <h1 className="text-[0.9375rem]">Logout</h1>
                         </button>
                     </>
@@ -46,6 +50,7 @@ const NavBar = () => {
                         </NavLink>
                     </>
                 )}
+                <div className='border border-white/40'></div>
                 <NavLink href='/rules'>
                     <h1 className="text-[0.9375rem]">Rules</h1>
                 </NavLink>
