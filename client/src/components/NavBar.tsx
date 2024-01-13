@@ -41,6 +41,12 @@ const NavBar = () => {
                         </Link>
                     </>
                 )}
+                <Link to="/rules" className={`
+                    flex items-center gap-2 transition-colors ease-in-out hover:text-[#ededed]/80
+                    ${pathname === '/rules' ? 'text-[#e1e7ef]' : 'text-[#ededed]/60'} 
+                `}>
+                    <h1 className="text-[0.9375rem]">Rules</h1>
+                </Link>
             </div>
         </div>
     )
