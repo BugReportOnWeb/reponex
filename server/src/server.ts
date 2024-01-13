@@ -26,7 +26,7 @@ app.use(logging);
 
 // Routes
 app.use('/api/users', userRoutes);
-app.use('/api/repo/', repoRoutes);
+app.use('/api/repos', repoRoutes);
 
 io.on('connection', socket => {
   console.log(socket.id, 'connected');
