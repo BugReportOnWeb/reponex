@@ -1,6 +1,46 @@
 import { Request, Response } from "express";
 
-// DELETE /api/repos/:owner/:repo
+// POST /api/repos/create
+const createRepo = async (req: Request, res: Response) => {
+  const { repoName, description, privateRepo } = req.body;
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    const error = 'Auth token not provided';
+    return res.status(400).send({ error });
+  }
+
+  const token = authorization.split(' ')[1];
+
+  try {
+    const url = 'https://api.github.com/user/repos';
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: repoName,
+        description: description,
+        private: privateRepo || false,
+      }),
+    });
+
+    if (response.ok) {
+      const createdRepo = await response.json();
+      res.json(createdRepo);
+    } else {
+      const errorResponse = await response.json();
+      res.status(response.status).json({ error: errorResponse });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+// DELETE /api/repos/delete/:owner/:repo
 const deleteRepo = async (req: Request, res: Response) => {
   const { owner, repo } = req.params;
   const { authorization } = req.headers;
@@ -33,4 +73,7 @@ const deleteRepo = async (req: Request, res: Response) => {
   }
 }
 
-export { deleteRepo }
+export {
+  deleteRepo,
+  createRepo,
+}
