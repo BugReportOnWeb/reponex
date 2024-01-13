@@ -14,9 +14,9 @@ const app = express();
 
 const server = createServer(app);
 const io = new Server(server, {
-  cors: {
-    origin: `http://localhost:${CLIENT_PORT}`
-  }
+    cors: {
+        origin: `http://localhost:${CLIENT_PORT}`
+    }
 });
 
 // Middlewares
@@ -29,17 +29,17 @@ app.use('/api/users', userRoutes);
 app.use('/api/repos', repoRoutes);
 
 io.on('connection', socket => {
-  console.log(socket.id, 'connected');
+    console.log(socket.id, 'connected');
 
-  socket.on('message', messageData => {
-    io.emit('message', messageData);
-  })
+    socket.on('message', messageData => {
+        io.emit('message', messageData);
+    })
 
-  socket.on('disconnect', () => {
-    console.log(socket.id, 'left');
-  })
+    socket.on('disconnect', () => {
+        console.log(socket.id, 'left');
+    })
 })
 
 server.listen(+SERVER_PORT, () => {
-  console.log(`Server listening on port ${SERVER_PORT}`);
+    console.log(`Server listening on port ${SERVER_PORT}`);
 })
