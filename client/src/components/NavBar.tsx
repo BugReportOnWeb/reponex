@@ -1,14 +1,22 @@
+// Core
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+
+// Context
+import { AuthUserContext } from "../context/AuthUserContext";
+import { AuthUserContextType } from "../types/user";
+import { MessageLogsContext } from "../context/MessageLogsContext";
+import { MessageLogsContextType } from "../types/message";
+
+// Icons
 import { FiLogIn } from "react-icons/fi";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { BsGlobe2 } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { AuthUserContext } from "../context/AuthUserContext";
-import { AuthUserContextType } from "../types/user";
+import { IoBookOutline } from "react-icons/io5";
+
+// Extras
 import NavLink from "./NavLink";
-import { MessageLogsContext } from "../context/MessageLogsContext";
-import { MessageLogsContextType } from "../types/message";
 import socket from "../socket/socket";
 
 const NavBar = () => {
@@ -52,6 +60,7 @@ const NavBar = () => {
                 )}
                 <div className='border border-white/40'></div>
                 <NavLink href='/rules'>
+                    <IoBookOutline style={{ fontSize: '15px' }} />
                     <h1 className="text-[0.9375rem]">Rules</h1>
                 </NavLink>
             </div>
