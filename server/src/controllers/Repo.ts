@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 
- // DELETE /api/repos/:owner/:repo
+// DELETE /api/repos/:owner/:repo
 const deleteRepo = async (req: Request, res: Response) => {
   const { owner, repo } = req.params;
   const { authorization } = req.headers;
 
   if (!authorization) {
-        const error = 'Auth token not provided';
-        return res.status(400).send({ error });
-    }
+    const error = 'Auth token not provided';
+    return res.status(400).send({ error });
+  }
 
   const token = authorization.split(' ')[1];
 
@@ -32,3 +32,5 @@ const deleteRepo = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+export { deleteRepo }
