@@ -14,17 +14,17 @@ import { AuthUserContext } from "./context/AuthUserContext";
 import { AuthUserContextType } from "./types/user";
 
 const App = () => {
-  const { authUser } = useContext(AuthUserContext) as AuthUserContextType;
+    const { authUser } = useContext(AuthUserContext) as AuthUserContextType;
 
-  return (
-    <Routes>
-      <Route path="/" element={authUser ? <Dashboard /> : <Navigate to='/login' />} />
-      <Route path="/chat" element={authUser ? <Chat /> : <Navigate to='/login' />} />
-      <Route path="/register" element={!authUser ? <Register /> : <Navigate to='/' />} />
-      <Route path="/rules" element={<Rules />} />
-      <Route path="/login" element={!authUser ? <Login /> : <Navigate to='/' />} />
-    </Routes>
-  )
+    return (
+        <Routes>
+            <Route path="/" element={authUser ? <Dashboard /> : <Navigate to='/login' />} />
+            <Route path="/chat" element={authUser ? <Chat /> : <Navigate to='/login' />} />
+            <Route path="/register" element={!authUser ? <Register /> : <Navigate to='/' />} />
+            <Route path="/login" element={!authUser ? <Login /> : <Navigate to='/' />} />
+            <Route path="/rules" element={<Rules />} />
+        </Routes>
+    )
 }
 
 export default App;
