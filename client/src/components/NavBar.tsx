@@ -5,18 +5,35 @@ import { useContext } from "react";
 import { AuthUserContext } from "../context/AuthUserContext";
 import { AuthUserContextType } from "../types/user";
 import NavLink from "./NavLink";
+import { MessageLogsContext } from "../context/MessageLogsContext";
+import { MessageLogsContextType } from "../types/message";
+import socket from "../socket/socket";
 
 const NavBar = () => {
-    const { authUser } = useContext(AuthUserContext) as AuthUserContextType;
+    const { authUser, setAuthUser } = useContext(AuthUserContext) as AuthUserContextType;
+    const { setMessageDataLogs } = useContext(MessageLogsContext) as MessageLogsContextType;
+
+    const logoutUser = () => {
+        localStorage.removeItem('token');
+        socket.disconnect();
+
+        setAuthUser('');
+        setMessageDataLogs([]);
+    }
 
     return (
         <div className="p-5 w-full flex items-center justify-between">
             <Link to="/" className="font-bold text-2xl text-[#ededed] select-none">RepoNex</Link>
             <div className="h-full flex gap-6">
                 {authUser ? (
-                    <NavLink href='/chat'>
-                        <h1 className="text-[0.9375rem]">Globe</h1>
-                    </NavLink>
+                    <>
+                        <NavLink href='/chat'>
+                            <h1 className="text-[0.9375rem]">Globe</h1>
+                        </NavLink>
+                        <button onClick={logoutUser} className='flex items-center gap-2 text-[#ededed]/60 transition-colors ease-in-out hover:text-[#ededed]/80'>
+                            <h1 className="text-[0.9375rem]">Logout</h1>
+                        </button>
+                    </>
                 ) : (
                     <>
                         <NavLink href='/login'>
