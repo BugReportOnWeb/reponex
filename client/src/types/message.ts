@@ -1,7 +1,13 @@
+import { Dispatch, SetStateAction } from "react";
+
 type MessageData = {
-    type: 'message-bubble' | 'message-log';
     username: string;
     message: string;
 }
 
-export type { MessageData } ;
+type MessageLogsContextType = {
+    messageDataLogs: MessageData[];
+    setMessageDataLogs: Dispatch<SetStateAction<MessageData[]>>;
+}
+
+export type { MessageData, MessageLogsContextType };
