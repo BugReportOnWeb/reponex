@@ -45,7 +45,7 @@ const Login = () => {
     };
     return (
         <div className="absolute h-[calc(100vh-8.54rem)] w-full flex items-center justify-center">
-            <div className='flex flex-col gap-5'>
+            <div className='relative flex flex-col gap-5'>
                 <h1 className='text-3xl font-semibold text-center'>Login Account</h1>
                 <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-4'>
                     <div className='flex flex-col gap-4 w-full'>
@@ -75,7 +75,7 @@ const Login = () => {
                     </button>
                 </form>
                 <h1 className='text-sm text-[#7f8ea3] text-center'>Don't have an account? <Link className='underline underline-offset-4 decoration-[#e1e7ef]/40 hover:decoration-[#e1e7ef]/80' to='/register'>Register Now</Link></h1>
-                <div className='text-red-400 text-sm text-center -mt-2'>{error}</div>
+                <div className='absolute top-full left-1/2 -translate-x-1/2 mt-2.5 w-fit text-red-400 text-sm text-center -mt-2'>{error}</div>
             </div>
         </div>
     );
