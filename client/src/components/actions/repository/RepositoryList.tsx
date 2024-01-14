@@ -1,4 +1,4 @@
-import repoData from '../../../localStore/repoData.json';
+import { repoData } from '../../../localStore/repoData';
 import { Repository } from '../../../types/repo';
 import RepoCard from './RepoCard';
 
