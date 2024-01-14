@@ -172,6 +172,41 @@ const lockIssue = async (req: Request, res: Response) => {
   }
 }
 
+// DELETE /api/repos/issues/unlock/:owner/:repo/:issue_number
+const unLockIssue = async (req: Request, res: Response) => {
+  const { owner, repo, issue_number } = req.params;
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    const error = 'Auth token not provided';
+    return res.status(400).json({ error });
+  }
+
+  const token = authorization.split(' ')[1];
+
+  const url = `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}/lock`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 204) {
+      res.status(204).send();
+    } else {
+      const errorResponse = await response.json();
+      res.status(response.status).json({ error: errorResponse });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 // DELETE /api/repos/delete/:owner/:repo
 const deleteRepo = async (req: Request, res: Response) => {
   const { owner, repo } = req.params;
@@ -323,4 +358,5 @@ export {
   mergePullReq,
   createIssue,
   lockIssue,
+  unLockIssue,
 }
