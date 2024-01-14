@@ -132,6 +132,46 @@ const createIssue = async (req: Request, res: Response) => {
   }
 }
 
+// PUT /api/repos/issues/lock/:owner/:repo/:issue_number
+const lockIssue = async (req: Request, res: Response) => {
+  const { owner, repo, issue_number } = req.params;
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    const error = 'Auth token not provided';
+    return res.status(400).json({ error });
+  }
+
+  const token = authorization.split(' ')[1];
+
+  const url = `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}/lock`;
+
+  const lockData = {
+    lock_reason: req.body.lock_reason || 'resolved', // Default to 'resolved' Can be one of: off-topic, too heated, resolved, spam 
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(lockData),
+    });
+
+    if (response.status === 204) {
+      res.status(204).send();
+    } else {
+      const errorResponse = await response.json();
+      res.status(response.status).json({ error: errorResponse });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 // DELETE /api/repos/delete/:owner/:repo
 const deleteRepo = async (req: Request, res: Response) => {
   const { owner, repo } = req.params;
@@ -282,4 +322,5 @@ export {
   createBranch,
   mergePullReq,
   createIssue,
+  lockIssue,
 }
