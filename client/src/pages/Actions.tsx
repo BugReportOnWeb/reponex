@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RepositoryAction from "../components/actions/RepositoryAction";
+import RepositoryAction from "../components/actions/repository/RepositoryAction";
 import IssueAction from "../components/actions/IssueAction";
 import PullRequestAction from "../components/actions/PullRequestAction";
 import ActionTab from "../components/actions/ActionTab";
