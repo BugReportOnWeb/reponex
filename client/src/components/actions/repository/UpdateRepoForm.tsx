@@ -18,7 +18,7 @@ const UpdateRepoForm = () => {
     }
 
     return (
-        <form className='flex flex-col justify-start items-center gap-4'>
+        <form className='row-span-2 flex flex-col justify-start items-center gap-4'>
             <div className='flex flex-col gap-2 text-center'>
                 <h1 className='font-extrabold text-2xl'>Update a Repository</h1>
                 <p className='font-extralight text-sm'>Fill the updated details for your GitHub repository</p>

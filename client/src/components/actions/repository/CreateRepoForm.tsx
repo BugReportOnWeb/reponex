@@ -14,7 +14,7 @@ const CreateRepoForm = () => {
     }
 
     return (
-        <form className='flex flex-col justify-start items-center gap-4'>
+        <form className='h-fit flex flex-col justify-start items-center gap-4'>
             <div className='flex flex-col gap-2 text-center'> <h1 className='font-extrabold text-2xl'>Create a new Repository</h1>
                 <p className='font-extralight text-sm'>Fill the essential details for a new GitHub repository</p>
             </div>

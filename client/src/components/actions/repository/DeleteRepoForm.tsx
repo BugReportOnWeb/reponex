@@ -12,7 +12,7 @@ const DeleteRepoForm = () => {
     }
 
     return (
-        <form className='flex flex-col justify-start items-center gap-4'>
+        <form className='h-fit flex flex-col justify-start items-center gap-4'>
             <div className='flex flex-col gap-2 text-center'> <h1 className='font-extrabold text-2xl'>Delete a Repository</h1>
                 <p className='font-extralight text-sm'>Fill the repository name to permantly delete it</p>
             </div>
@@ -37,7 +37,7 @@ const DeleteRepoForm = () => {
                     className='bg-transparent border border-[#272731] px-3.5 py-2.5 text-sm rounded-lg placeholder-[#A1A1AA] outline-none'
                     required
                 />
-                <button onClick={deleteRepo} type="button" className='mt-3 inline-flex w-full whitespace-nowrap items-center justify-center px-4 py-2 border border-[#27272a] font-medium text-sm rounded-md transition-colors cursor-pointer bg-white text-[#fef2f2] bg-[#7f1d1d] hover:bg-[#7f1d1d]/90'>
+                <button onClick={deleteRepo} type="button" className='text-[#FEF2F2] bg-[#7f1d1d] mt-3 inline-flex w-full whitespace-nowrap items-center justify-center px-4 py-2 border border-[#27272a] font-medium text-sm rounded-md transition-colors cursor-pointer bg-white  hover:bg-[#7f1d1d]/90'>
                     Delete Repository
                 </button>
             </div>
