@@ -1,4 +1,4 @@
-[
+export const repoData = [
   {
     "id": 505405139,
     "node_id": "R_kgDOHh_e0w",
