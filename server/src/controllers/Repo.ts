@@ -132,6 +132,52 @@ const createIssue = async (req: Request, res: Response) => {
   }
 }
 
+// PATCH /api/repos/issues/update/:owner/:repo
+const updateIssue = async (req: Request, res: Response) => {
+  const { owner, repo, issue_number } = req.params;
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    const error = 'Auth token not provided';
+    return res.status(400).json({ error });
+  }
+
+  const token = authorization.split(' ')[1];
+
+  const url = `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}`;
+
+  const issueData = {
+    title: req.body.title,
+    body: req.body.body,
+    // assignees: req.body.assignees || [],
+    // milestone: req.body.milestone || null,
+    state: req.body.state || "open", // can be open or closed
+    labels: req.body.labels || [],
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(issueData),
+    });
+
+    if (response.ok) {
+      const createdIssue = await response.json();
+      res.json(createdIssue);
+    } else {
+      const errorResponse = await response.json();
+      res.status(response.status).json({ error: errorResponse });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 // PUT /api/repos/issues/lock/:owner/:repo/:issue_number
 const lockIssue = async (req: Request, res: Response) => {
   const { owner, repo, issue_number } = req.params;
@@ -357,6 +403,7 @@ export {
   createBranch,
   mergePullReq,
   createIssue,
+  updateIssue,
   lockIssue,
   unLockIssue,
 }
