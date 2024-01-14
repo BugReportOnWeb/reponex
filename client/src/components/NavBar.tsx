@@ -14,6 +14,7 @@ import { IoPersonAddSharp } from "react-icons/io5";
 import { BsGlobe2 } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
 import { IoBookOutline } from "react-icons/io5";
+import { IoCodeWorking } from "react-icons/io5";
 
 // Extras
 import NavLink from "./NavLink";
@@ -40,6 +41,10 @@ const NavBar = () => {
                         <NavLink href='/chat'>
                             <BsGlobe2 style={{ fontSize: "15px" }} />
                             <h1 className="text-[0.9375rem]">Chat</h1>
+                        </NavLink>
+                        <NavLink href='/actions'>
+                            <IoCodeWorking style={{ fontSize: "15px" }} />
+                            <h1 className="text-[0.9375rem]">Actions</h1>
                         </NavLink>
                         <button onClick={logoutUser} className='flex items-center gap-2 text-[#ededed]/60 transition-colors ease-in-out hover:text-[#ededed]/80'>
                             <CiLogout style={{ fontSize: "15px" }} />

@@ -12,6 +12,7 @@ import Rules from "./pages/Rules";
 // Extras
 import { AuthUserContext } from "./context/AuthUserContext";
 import { AuthUserContextType } from "./types/user";
+import Actions from "./pages/Actions";
 
 const App = () => {
     const { authUser } = useContext(AuthUserContext) as AuthUserContextType;
@@ -20,8 +21,9 @@ const App = () => {
         <Routes>
             <Route path="/" element={authUser ? <Dashboard /> : <Navigate to='/login' />} />
             <Route path="/chat" element={authUser ? <Chat /> : <Navigate to='/login' />} />
-            <Route path="/register" element={!authUser ? <Register /> : <Navigate to='/' />} />
+            <Route path="/actions" element={authUser ? <Actions /> : <Navigate to='/login' />} />
             <Route path="/login" element={!authUser ? <Login /> : <Navigate to='/' />} />
+            <Route path="/register" element={!authUser ? <Register /> : <Navigate to='/' />} />
             <Route path="/rules" element={<Rules />} />
         </Routes>
     )
