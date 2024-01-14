@@ -1,4 +1,4 @@
-{
+export const userData = {
   "login": "BugReportOnWeb",
   "id": 96491001,
   "node_id": "U_kgDOBcBV-Q",
