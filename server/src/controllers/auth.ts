@@ -4,6 +4,7 @@ import { createToken, generateUUID } from "../lib/utils";
 import { createTable } from "../db/queries";
 import { compare, genSalt, hash } from 'bcrypt';
 import db from "../db/pool";
+import { isGitHubUser } from "../lib/github";
 
 // POST /api/users/login -d { username, password }
 const loginUser = async (req: Request, res: Response) => {
@@ -68,6 +69,7 @@ const registerUser = async (req: Request, res: Response) => {
         return res.status(400).send({ error });
     }
 
+
     try {
         await createTable();
         const result = await db.query(`
@@ -80,9 +82,15 @@ const registerUser = async (req: Request, res: Response) => {
             return res.status(409).send({ error });
         }
 
+        const githubUser = await isGitHubUser(username);
+        if (!githubUser.login) {
+            const error = 'GitHub user doesn\'t exist with that username';
+            return res.status(404).send({ error })
+        }
+
         const salt = await genSalt(10);
         const hashedPassword = await hash(password, salt);
-        const userDetails: User = { id: generateUUID(), username, password: hashedPassword }
+        const userDetails: User = { id: generateUUID(), username: githubUser.login, password: hashedPassword }
 
         await db.query(`
             INSERT INTO users 
