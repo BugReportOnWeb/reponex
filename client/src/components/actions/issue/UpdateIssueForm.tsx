@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+
 const UpdateIssueForm = () => {
     const [repoName, setRepoName] = useState('');
     const [repoOwner, setRepoOwner] = useState('');
@@ -8,8 +10,37 @@ const UpdateIssueForm = () => {
     const [issueBody, setIssueBody] = useState('');
     const [issueCloseState, setIssueCloseState] = useState(false);
 
-    const updateIssue = () => {
-        console.log({ action: 'UPDATE', repoName, repoOwner, issueTitle, issueNumber, issueCloseState, issueBody });
+    const updateIssue = async () => {
+        const issueDetails = {
+            title: issueTitle,
+            body: issueBody,
+            state: issueCloseState ? 'closed' : 'open'
+        }
+
+        console.log({ action: 'UPDATE', repoName, repoOwner, issueTitle, issueNumber, ...issueDetails });
+
+        // TODO: Move to lib
+        try {
+            const res = await fetch(`http://localhost:3000/api/repos/issues/update/${repoOwner}/${repoName}/${issueNumber}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${GITHUB_TOKEN}`
+                },
+                body: JSON.stringify(issueDetails)
+            })
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error);
+            }
+
+            // TODO: Handle success and error accordingly
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
 
         setRepoName('');
         setRepoOwner('');
