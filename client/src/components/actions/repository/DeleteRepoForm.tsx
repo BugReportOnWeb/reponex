@@ -37,7 +37,7 @@ const DeleteRepoForm = () => {
                     className='bg-transparent border border-[#272731] px-3.5 py-2.5 text-sm rounded-lg placeholder-[#A1A1AA] outline-none'
                     required
                 />
-                <button onClick={deleteRepo} type="button" className='text-[#FEF2F2] bg-[#7f1d1d] mt-3 inline-flex w-full whitespace-nowrap items-center justify-center px-4 py-2 border border-[#27272a] font-medium text-sm rounded-md transition-colors cursor-pointer bg-white  hover:bg-[#7f1d1d]/90'>
+                <button onClick={deleteRepo} type="button" className='text-[#FEF2F2] bg-[#7f1d1d] mt-3 inline-flex w-full whitespace-nowrap items-center justify-center px-4 py-2 border border-[#27272a] font-medium text-sm rounded-md transition-colors cursor-pointer hover:bg-[#7f1d1d]/90'>
                     Delete Repository
                 </button>
             </div>
