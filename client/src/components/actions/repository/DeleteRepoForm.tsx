@@ -1,11 +1,35 @@
 import { useState } from "react";
 
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+
 const DeleteRepoForm = () => {
     const [repoName, setRepoName] = useState('');
     const [repoOwner, setRepoOwner] = useState('');
 
-    const deleteRepo = () => {
+    const deleteRepo = async () => {
         console.log({ action: 'DELETE', repoName, repoOwner });
+
+        // TODO: Move to lib
+        try {
+            const res = await fetch(`http://localhost:3000/api/repos/delete/${repoOwner}/${repoName}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${GITHUB_TOKEN}`
+                },
+            })
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error);
+            }
+
+            // TODO: Handle success and error accordingly
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
 
         setRepoName('');
         setRepoOwner('');

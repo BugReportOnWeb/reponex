@@ -1,19 +1,50 @@
 import { useState } from "react";
 
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+
 const UpdateRepoForm = () => {
     const [repoName, setRepoName] = useState('');
     const [repoNameUpdated, setRepoNameUpdated] = useState('');
-    const [repoDescription, setRepoDescription] = useState('');
-    const [repoPrivate, setRepoPrivate] = useState(false);
+    const [repoDescriptionUpdated, setRepoDescriptionUpdated] = useState('');
+    const [repoPrivateUpdated, setRepoPrivateUpdated] = useState(false);
     const [repoOwner, setRepoOwner] = useState('');
 
-    const updateRepository = () => {
-        console.log({ action: 'UPDATE', repoName, repoNameUpdated, repoDescription, repoPrivate, repoOwner });
+    const updateRepository = async () => {
+        const repoDetails = {
+            name: repoNameUpdated,
+            description: repoDescriptionUpdated,
+            repoPrivate: repoPrivateUpdated
+        }
+
+        console.log({ action: 'UPDATE', ...repoDetails, repoOwner, repoName });
+
+        // TODO: Move to lib
+        try {
+            const res = await fetch(`http://localhost:3000/api/repos/update/${repoOwner}/${repoName}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${GITHUB_TOKEN}`
+                },
+                body: JSON.stringify(repoDetails)
+            })
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error);
+            }
+
+            // TODO: Handle success and error accordingly
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
 
         setRepoName('');
         setRepoNameUpdated('');
-        setRepoDescription('');
-        setRepoPrivate(false);
+        setRepoDescriptionUpdated('');
+        setRepoPrivateUpdated(false);
         setRepoOwner('');
     }
 
@@ -44,13 +75,13 @@ const UpdateRepoForm = () => {
                     className='bg-transparent border border-[#272731] px-3.5 py-2.5 text-sm rounded-lg placeholder-[#A1A1AA] outline-none'
                     required
                 />
-                <label htmlFor="repoDescription">Repository Description (updated)</label>
+                <label htmlFor="repoDescriptionUpdated">Repository Description (updated)</label>
                 <input
-                    id="repoDescription"
+                    id="repoDescriptionUpdated"
                     type='text'
                     placeholder='New updated description'
-                    value={repoDescription}
-                    onChange={(e) => setRepoDescription(e.target.value)}
+                    value={repoDescriptionUpdated}
+                    onChange={(e) => setRepoDescriptionUpdated(e.target.value)}
                     className='bg-transparent border border-[#272731] px-3.5 py-2.5 text-sm rounded-lg placeholder-[#A1A1AA] outline-none'
                     required
                 />
@@ -66,10 +97,10 @@ const UpdateRepoForm = () => {
                 />
                 <div className='flex gap-2 items-center'>
                     <input
-                        id="repoPrivate"
+                        id="repoPrivateUpdated"
                         type='checkbox'
-                        checked={repoPrivate}
-                        onChange={() => setRepoPrivate(!repoPrivate)}
+                        checked={repoPrivateUpdated}
+                        onChange={() => setRepoPrivateUpdated(!repoPrivateUpdated)}
                         className='bg-transparent border border-[#272731] px-3.5 py-2.5 text-sm rounded-lg placeholder-[#A1A1AA] outline-none'
                     />
                     <h1>Private Repository</h1>

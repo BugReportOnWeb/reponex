@@ -1,12 +1,43 @@
 import { useState } from "react";
 
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+
 const CreateRepoForm = () => {
     const [repoName, setRepoName] = useState('');
     const [repoDescription, setRepoDescription] = useState('');
     const [repoPrivate, setRepoPrivate] = useState(false);
 
-    const createRepo = () => {
-        console.log({ action: 'CREATE', repoName, repoDescription, repoPrivate });
+    const createRepo = async () => {
+        const repoDetails = {
+            repoName,
+            description: repoDescription,
+            privateRepo: repoPrivate
+        }
+
+        console.log({ action: 'CREATE', ...repoDetails });
+
+        // TODO: Move to lib
+        try {
+            const res = await fetch('http://localhost:3000/api/repos/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${GITHUB_TOKEN}`
+                },
+                body: JSON.stringify(repoDetails)
+            })
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error);
+            }
+
+            // TODO: Handle success and error accordingly
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
 
         setRepoName('');
         setRepoDescription('');
