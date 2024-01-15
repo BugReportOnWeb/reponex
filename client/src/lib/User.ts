@@ -1,91 +1,57 @@
-import { GitHubUser } from "../types/user";
+const getGitHubUser = async (username: string) => {
+    const userData = localStorage.getItem("userData");
+    if (userData) return JSON.parse(userData);
 
-const getGitHubUser = async (username: string): Promise<GitHubUser> => {
-  const userData = localStorage.getItem("userData");
+    try {
+        const res = await fetch(`https://api.github.com/users/${username}`);
+        const data = await res.json();
 
-  try {
-    if (userData) {
-      return JSON.parse(userData);
+        if (!res.ok) {
+            throw new Error(data.error);
+        }
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
     }
-    const url = `https://api.github.com/users/${username}`;
-    const res = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-
-    localStorage.setItem("userData", JSON.stringify(data));
-
-    if (!res.ok) {
-      throw new Error(data.error);
-    }
-
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
 };
 
 const getGitHubUserRepos = async (username: string) => {
-  const reposData = localStorage.getItem("reposData");
+    const reposData = localStorage.getItem("reposData");
+    if (reposData) return JSON.parse(reposData);
 
-  try {
-    if (reposData) {
-      return JSON.parse(reposData);
+    try {
+        const res = await fetch(`https://api.github.com/users/${username}/repos`);
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw new Error(data.error);
+        }
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
     }
-
-    const url = `https://api.github.com/users/${username}/repos`;
-    const res = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-
-    localStorage.setItem("reposData", JSON.stringify(data));
-
-    if (!res.ok) {
-      throw new Error(data.error);
-    }
-
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
 };
 
 const getGitHubUserEvents = async (username: string) => {
-  const eventsData = localStorage.getItem("eventsData");
+    const eventsData = localStorage.getItem("eventsData");
+    if (eventsData) return JSON.parse(eventsData);
 
-  try {
-    if (eventsData) {
-      return JSON.parse(eventsData);
+    try {
+        const res = await fetch(`https://api.github.com/users/${username}/events`);
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw new Error(data.error);
+        }
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
     }
-
-    const url = `https://api.github.com/users/${username}/events`;
-    const res = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-
-    localStorage.setItem("eventsData", JSON.stringify(data));
-
-    if (!res.ok) {
-      throw new Error(data.error);
-    }
-
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
 };
 export { getGitHubUser, getGitHubUserRepos, getGitHubUserEvents };
