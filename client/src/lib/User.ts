@@ -16,7 +16,7 @@ const getGitHubUser = async (username: string): Promise<GitHubUser> => {
     });
     const data = await res.json();
 
-    localStorage.setItem("userData", data);
+    localStorage.setItem("userData", JSON.stringify(data));
 
     if (!res.ok) {
       throw new Error(data.error);
@@ -46,7 +46,7 @@ const getGitHubUserRepos = async (username: string) => {
     });
     const data = await res.json();
 
-    localStorage.setItem("reposData", data);
+    localStorage.setItem("reposData", JSON.stringify(data));
 
     if (!res.ok) {
       throw new Error(data.error);
@@ -61,6 +61,7 @@ const getGitHubUserRepos = async (username: string) => {
 
 const getGitHubUserEvents = async (username: string) => {
   const eventsData = localStorage.getItem("eventsData");
+
   try {
     if (eventsData) {
       return JSON.parse(eventsData);
@@ -75,7 +76,7 @@ const getGitHubUserEvents = async (username: string) => {
     });
     const data = await res.json();
 
-    localStorage.setItem("eventsData", data);
+    localStorage.setItem("eventsData", JSON.stringify(data));
 
     if (!res.ok) {
       throw new Error(data.error);
