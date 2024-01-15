@@ -5,7 +5,7 @@ import UpdateRepoForm from "./UpdateRepoForm";
 
 const RepositoryAction = () => {
     return (
-        <div className='h-[calc(100vh-18rem)] grid grid-rows-2 grid-cols-3 gap-4'>
+        <div className='h-[40rem] grid grid-rows-2 grid-cols-3 gap-4'>
             <CreateRepoForm />
             <DeleteRepoForm />
             <UpdateRepoForm />
