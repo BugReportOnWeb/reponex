@@ -8,11 +8,11 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Chat from "./pages/Chat";
 import Rules from "./pages/Rules";
+import Actions from "./pages/Actions";
 
-// Extras
+// Context
 import { AuthUserContext } from "./context/AuthUserContext";
 import { AuthUserContextType } from "./types/auth";
-import Actions from "./pages/Actions";
 
 const App = () => {
     const { authUser } = useContext(AuthUserContext) as AuthUserContextType;

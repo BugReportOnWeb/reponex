@@ -1,10 +1,10 @@
 import { FaRegStar, FaRegEye } from "react-icons/fa";
 import { GoRepoForked } from "react-icons/go";
 import { AiOutlineIssuesClose } from "react-icons/ai";
-import { Repository } from "../../../types/repo";
+import { FilterRepo } from "../../../types/github";
 
 type RepoCardProps = {
-    repo: Repository;
+    repo: FilterRepo;
 }
 
 const RepoCard = ({ repo }: RepoCardProps) => {

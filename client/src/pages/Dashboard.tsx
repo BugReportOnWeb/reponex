@@ -6,9 +6,9 @@ import {
     getGitHubUserRepos,
     getGitHubUserEvents,
 } from "../lib/User";
-import UserData from "../components/UserData";
+import UserData from "../components/dashboard/UserData";
 import RepoCard from "../components/actions/repository/RepoCard";
-import ActivityCard from "../components/actions/repository/ActivityCard";
+import ActivityCard from "../components/dashboard/ActivityCard";
 import { GitHubEvent, GitHubRepo, GitHubUser, FilterRepo } from "../types/github";
 
 const Dashboard = () => {

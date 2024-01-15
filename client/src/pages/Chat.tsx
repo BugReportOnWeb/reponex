@@ -1,6 +1,6 @@
 import { FormEvent, useContext, useEffect, useRef, useState } from "react";
-import MessageBubble from "../components/MessageBubble";
-import MessageForm from "../components/MessageForm";
+import MessageBubble from "../components/chat/MessageBubble";
+import MessageForm from "../components/chat/MessageForm";
 import { MessageData, MessageLogsContextType } from "../types/message";
 import { AuthUserContext } from "../context/AuthUserContext";
 import { AuthUserContextType } from "../types/auth";

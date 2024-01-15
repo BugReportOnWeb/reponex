@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa6";
 import { RiGitRepositoryCommitsFill } from "react-icons/ri";
 import { MdAttachEmail } from "react-icons/md";
-import { GitHubUser } from "../types/github";
+import { GitHubUser } from "../../types/github";
 
 interface UserDataProps {
     userData: GitHubUser;

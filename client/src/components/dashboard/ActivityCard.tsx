@@ -1,4 +1,4 @@
-import { GitHubEvent } from "../../../types/github"
+import { GitHubEvent } from "../../types/github"
 
 type ActivityCardProps = {
     event: GitHubEvent;
