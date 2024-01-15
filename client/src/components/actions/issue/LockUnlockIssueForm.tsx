@@ -3,14 +3,14 @@ import { useState } from "react";
 const LockUnlockIssueForm = () => {
     const [repoName, setRepoName] = useState('');
     const [repoOwner, setRepoOwner] = useState('');
-    const [issueNumber, setIssueNumber] = useState<number | null>(null);
+    const [issueNumber, setIssueNumber] = useState('');
 
     const lockIssue = () => {
         console.log({ action: 'LOCK', repoName, repoOwner, issueNumber });
 
         setRepoName('');
         setRepoOwner('');
-        setIssueNumber(null);
+        setIssueNumber('');
     }
 
     const unlockIssue = () => {
@@ -18,13 +18,13 @@ const LockUnlockIssueForm = () => {
 
         setRepoName('');
         setRepoOwner('');
-        setIssueNumber(null);
+        setIssueNumber('');
     }
 
     return (
         <form className='h-fit flex flex-col justify-start items-center gap-4'>
-            <div className='flex flex-col gap-2 text-center'> <h1 className='font-extrabold text-2xl'>Create a new Issue</h1>
-                <p className='font-extralight text-sm'>Fill the essential details for a new GitHub issue</p>
+            <div className='flex flex-col gap-2 text-center'> <h1 className='font-extrabold text-2xl'>Lock/Unlock an Issue</h1>
+                <p className='font-extralight text-sm'>Fill issue details to either lock or unlock it</p>
             </div>
             <div className='flex flex-col gap-3 w-72'>
                 <label htmlFor="repoName">Repository Name</label>
@@ -52,8 +52,8 @@ const LockUnlockIssueForm = () => {
                     id="issueNumber"
                     type='number'
                     placeholder='#345 Issue number'
-                    value={issueNumber || undefined}
-                    onChange={(e) => setIssueNumber(+e.target.value)}
+                    value={issueNumber}
+                    onChange={(e) => setIssueNumber(e.target.value)}
                     className='bg-transparent border border-[#272731] px-3.5 py-2.5 text-sm rounded-lg placeholder-[#A1A1AA] outline-none'
                     required
                 />

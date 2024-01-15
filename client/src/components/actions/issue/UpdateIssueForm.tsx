@@ -3,17 +3,17 @@ import { useState } from "react";
 const UpdateIssueForm = () => {
     const [repoName, setRepoName] = useState('');
     const [repoOwner, setRepoOwner] = useState('');
-    const [issueNumber, setIssueNumber] = useState<number | null>(null);
+    const [issueNumber, setIssueNumber] = useState('');
     const [issueTitle, setIssueTitle] = useState('');
     const [issueBody, setIssueBody] = useState('');
     const [issueCloseState, setIssueCloseState] = useState(false);
 
     const updateIssue = () => {
-        console.log({ action: 'UPDATE', repoName, repoOwner, issueTitle, issueBody });
+        console.log({ action: 'UPDATE', repoName, repoOwner, issueTitle, issueNumber, issueCloseState, issueBody });
 
         setRepoName('');
         setRepoOwner('');
-        setIssueNumber(null);
+        setIssueNumber('');
         setIssueTitle('');
         setIssueBody('');
         setIssueCloseState(false);
@@ -33,7 +33,7 @@ const UpdateIssueForm = () => {
                     value={repoName}
                     onChange={(e) => setRepoName(e.target.value)}
                     className='bg-transparent border border-[#272731] px-3.5 py-2.5 text-sm rounded-lg placeholder-[#A1A1AA] outline-none'
-                    required
+                    required={true}
                 />
                 <label htmlFor="repoOwner">Repository Owner</label>
                 <input
@@ -50,8 +50,8 @@ const UpdateIssueForm = () => {
                     id="issueNumber"
                     type='number'
                     placeholder='#345 Issue number'
-                    value={issueNumber || undefined}
-                    onChange={(e) => setIssueNumber(+e.target.value)}
+                    value={issueNumber}
+                    onChange={e => setIssueNumber(e.target.value)}
                     className='bg-transparent border border-[#272731] px-3.5 py-2.5 text-sm rounded-lg placeholder-[#A1A1AA] outline-none'
                     required
                 />
