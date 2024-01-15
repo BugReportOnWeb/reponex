@@ -70,9 +70,9 @@ const Dashboard = () => {
                 Hello, {authUser}!
             </h1>
             {!error && userData && (
-                <section className="w-full h-[calc(100vh-15rem)] grid grid-cols-4 grid-rows-2 gap-x-4 gap-y-3">
-                    <div className="flex col-span-2 border border-gray-700 hover:border-[#ededed]/60 rounded-lg w-full h-full">
-                        <div className="w-1/3 h-full p-3 flex flex-col gap-3 justify-center items-center00">
+                <div className="w-full h-[calc(100vh-15rem)] grid grid-cols-4 grid-rows-2 gap-x-4 gap-y-3">
+                    <div className="flex gap-5 justify-center col-span-2">
+                        <div className="w-[40%] p-3 flex justify-center items-center">
                             <a
                                 href={userData.html_url}
                                 target="_blank"
@@ -81,13 +81,11 @@ const Dashboard = () => {
                                 <img
                                     src={userData.avatar_url}
                                     alt={userData.name || userData.login}
-                                    className="rounded-full transition-all duration-300 ease-in-out hover:border hover:border-cyan-500"
+                                    className="rounded-full transition-all duration-300 ease-in-out border border-white/40 hover:border-white/80"
                                 />
                             </a>
                         </div>
-                        <div className="w-2/3 h-full">
-                            <UserData userData={userData} />
-                        </div>
+                        <UserData userData={userData} />
                     </div>
                     <div className="col-span-2 flex flex-col gap-1.5 p-2">
                         <h1 className="font-extrabold text-2xl mb-2">Repositories List</h1>
@@ -132,7 +130,7 @@ const Dashboard = () => {
                             ))}
                         </div>
                     </div>
-                </section>
+                </div>
             )}
         </main>
     );
