@@ -7,8 +7,7 @@ import {
     getGitHubUserEvents,
 } from "../lib/User";
 import UserData from "../components/dashboard/UserData";
-import RepoCard from "../components/actions/repository/RepoCard";
-import ActivityCard from "../components/dashboard/ActivityCard";
+import RepoCard from "../components/actions/repository/RepoCard"; import ActivityCard from "../components/dashboard/ActivityCard";
 import { GitHubEvent, GitHubRepo, GitHubUser, FilterRepo } from "../types/github";
 
 const Dashboard = () => {
@@ -115,7 +114,7 @@ const Dashboard = () => {
                             {issuesData.length > 0 ? issuesData.map((issue, index) => (
                                 <div
                                     key={issue.id}
-                                    className="border rounded-md border-gray-700 p-2 text-sm"
+                                    className="flex p-2 text-sm gap-2"
                                 >
                                     <h1>{index + 1}</h1>
                                     <h1>{issue.payload.issue?.title}</h1>
@@ -125,8 +124,8 @@ const Dashboard = () => {
                             )}
                         </div>
                     </div>
-                    <div className="col-span-2 border border-gray-700 flex flex-col gap-2 p-2 hover:border-[#ededed]/60 rounded-lg">
-                        <h1 className="font-extrabold text-2xl">Activity Feeds</h1>
+                    <div className="col-span-2 flex flex-col gap-1.5 p-2">
+                        <h1 className="font-extrabold text-2xl mb-2">Activity Feeds</h1>
                         <div className="overflow-y-auto">
                             {eventsData.map((event, index) => (
                                 <ActivityCard key={index} event={event} />

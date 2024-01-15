@@ -7,13 +7,15 @@ type ActivityCardProps = {
 const ActivityCard = ({ event }: ActivityCardProps) => {
     return (
         <main>
-            <div key={event.id} className="flex items-center border rounded-md border-gray-700 gap-2 p-2 text-sm">
-                <div className="w-1/6 font-medium text-base">{event.type.split("E")[0]}</div>
+            {/* TODO: Refactor someday later */}
+            <div key={event.id} className="flex items-center gap-5 p-2.5 text-sm">
+                <div className="font-medium text-base">{event.type.split("E")[0]}</div>
                 {event.type === "IssuesEvent" && (
                     <a href={event.payload.issue?.html_url} className="w-5/6 flex justify-between text-sm text-[#ededed]/60 hover:text-blue-500">
                         <h1>
                             {event.payload.issue?.title}
-                        </h1> <h1 className={event.payload.issue?.state === "open" ? "text-red-500 font-semibold uppercase" : "text-green-500 font-semibold uppercase"}>
+                        </h1>
+                        <h1 className={event.payload.issue?.state === "open" ? "text-red-500 font-semibold uppercase" : "text-green-500 font-semibold uppercase"}>
                             {event.payload.issue?.state}
                         </h1>
                     </a>
