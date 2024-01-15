@@ -82,7 +82,7 @@ const Dashboard = () => {
                 />
               </a>
             </div>
-            <div className="w-2/3">
+            <div className="w-2/3 h-full">
               <UserData userData={userData} />
             </div>
           </div>
@@ -125,7 +125,6 @@ const Dashboard = () => {
             <h1 className="font-extrabold text-2xl">Activity Feeds</h1>
             <div className="overflow-y-auto">
               {eventData.map((event) => (
-                // @ts-expect-error improve types
                 <ActivityCard event={event} />
               ))}
             </div>
