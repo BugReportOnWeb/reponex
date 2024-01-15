@@ -1,7 +1,6 @@
 import { useState } from "react";
 import RepositoryAction from "../components/actions/repository/RepositoryAction";
 import IssueAction from "../components/actions/issue/IssueAction";
-import PullRequestAction from "../components/actions/PullRequestAction";
 import ActionTab from "../components/actions/ActionTab";
 import { ActionTabType } from "../types/action";
 
@@ -23,17 +22,12 @@ const Actions = () => {
                         currentTab={currentTab}
                         onClick={() => setCurrentTab('issue')}
                     >Issue</ActionTab>
-                    <ActionTab
-                        tab='pullRequest'
-                        currentTab={currentTab}
-                        onClick={() => setCurrentTab('pullRequest')}
-                    >Pull Request</ActionTab>
                 </div>
                 <div className='border border-[#e1e7ef]/40'></div>
             </div>
+            {/* TODO: Complete pull reaquest request */}
             {currentTab === 'repository' && <RepositoryAction />}
             {currentTab === 'issue' && <IssueAction />}
-            {currentTab === 'pullRequest' && <PullRequestAction />}
         </div>
     )
 }
