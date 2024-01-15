@@ -59,15 +59,31 @@ type Issue = {
   state_created_at: string;
 };
 
+type Payload = {
+  number: number | null;
+  pull_request: any | null;
+  forkee: any | null;
+  master_branch: string | null;
+  ref_type: string | null;
+  repository_id: number;
+  action: string | null;
+  issue: Issue | null;
+  push_id: number;
+  size: number;
+  distinct_size: number;
+  ref: string;
+  head: string;
+  before: string;
+  commits: any[]; // commits
+  public: boolean;
+};
+
 type GitHubEvent = {
   id: string;
   type: string;
   actor: Actor;
   repo: Repo;
-  payload: {
-    action: string;
-    issue: Issue;
-  };
+  payload: Payload;
   public: boolean;
   created_at: string;
 };
