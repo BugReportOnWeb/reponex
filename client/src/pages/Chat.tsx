@@ -3,7 +3,7 @@ import MessageBubble from "../components/MessageBubble";
 import MessageForm from "../components/MessageForm";
 import { MessageData, MessageLogsContextType } from "../types/message";
 import { AuthUserContext } from "../context/AuthUserContext";
-import { AuthUserContextType } from "../types/user";
+import { AuthUserContextType } from "../types/auth";
 import socket from "../socket/socket";
 import { MessageLogsContext } from "../context/MessageLogsContext";
 

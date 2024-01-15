@@ -11,7 +11,7 @@ import Rules from "./pages/Rules";
 
 // Extras
 import { AuthUserContext } from "./context/AuthUserContext";
-import { AuthUserContextType } from "./types/user";
+import { AuthUserContextType } from "./types/auth";
 import Actions from "./pages/Actions";
 
 const App = () => {

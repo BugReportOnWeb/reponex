@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
-import { AuthUserContextType } from "../types/user";
+import { AuthUserContextType } from "../types/auth";
 import isTokenValid from "../lib/isTokenValid";
 import socket from "../socket/socket";
 

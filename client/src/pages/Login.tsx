@@ -1,6 +1,6 @@
 import { useState, SyntheticEvent, useContext } from "react";
 import { AuthUserContext } from "../context/AuthUserContext";
-import { AuthUserContextType } from "../types/user";
+import { AuthUserContextType } from "../types/auth";
 import { Link } from "react-router-dom";
 import { LoginFormData } from "../types/formData";
 import socket from "../socket/socket";
