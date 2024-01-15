@@ -4,7 +4,7 @@ import UpdateIssueForm from "./UpdateIssueForm";
 
 const IssueAction = () => {
     return (
-        <div className='border h-[40rem] grid grid-rows-2 grid-cols-3 gap-4'>
+        <div className='h-[40rem] grid grid-rows-2 grid-cols-3 gap-4'>
             <CreateIssueForm />
             <UpdateIssueForm />
             <LockUnlockIssueForm />

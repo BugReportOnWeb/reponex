@@ -1,20 +1,66 @@
 import { useState } from "react";
 
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN
+
 const LockUnlockIssueForm = () => {
     const [repoName, setRepoName] = useState('');
     const [repoOwner, setRepoOwner] = useState('');
     const [issueNumber, setIssueNumber] = useState('');
 
-    const lockIssue = () => {
+    const lockIssue = async () => {
         console.log({ action: 'LOCK', repoName, repoOwner, issueNumber });
+
+        // TODO: Move to lib
+        try {
+            const res = await fetch(`http://localhost:3000/api/repos/issues/lock/${repoOwner}/${repoName}/${issueNumber}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${GITHUB_TOKEN}`
+                },
+            })
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error);
+            }
+
+            // TODO: Handle success and error accordingly
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
 
         setRepoName('');
         setRepoOwner('');
         setIssueNumber('');
     }
 
-    const unlockIssue = () => {
+    const unlockIssue = async () => {
         console.log({ action: 'UNLOCK', repoName, repoOwner, issueNumber });
+
+        // TODO: Move to lib
+        try {
+            const res = await fetch(`http://localhost:3000/api/repos/issues/unlock/${repoOwner}/${repoName}/${issueNumber}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${GITHUB_TOKEN}`
+                },
+            })
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error);
+            }
+
+            // TODO: Handle success and error accordingly
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
 
         setRepoName('');
         setRepoOwner('');

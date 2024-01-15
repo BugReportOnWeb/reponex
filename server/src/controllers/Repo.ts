@@ -397,6 +397,7 @@ export {
     createBranch,
     mergePullReq,
 
+    // TODO: Create controller for 'deleteIssue'
     createIssue,
     updateIssue,
     lockIssue,
