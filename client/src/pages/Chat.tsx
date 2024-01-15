@@ -6,6 +6,8 @@ import { AuthUserContext } from "../context/AuthUserContext";
 import { AuthUserContextType } from "../types/auth";
 import socket from "../socket/socket";
 import { MessageLogsContext } from "../context/MessageLogsContext";
+import { Link } from "react-router-dom";
+import { CgDanger } from "react-icons/cg";
 
 const Chat = () => {
     const [message, setMessage] = useState('');
@@ -67,22 +69,34 @@ const Chat = () => {
     return (
         <>
             {isConnected && (
-                <div className='overflow-y-auto h-[calc(100vh-14rem)] pt-5 px-5'>
-                    <div className='flex flex-col gap-3' ref={messageLogsRef}>
-                        {messageDataLogs.map((messageData, index) => (
-                            <MessageBubble
-                                key={index}
-                                messageData={messageData}
-                                messageDataLogs={messageDataLogs}
-                                username={authUser}
-                            />
-                        ))}
+                <div className='p-5'>
+                    <h1 className='font-bold text-4xl mb-3 flex gap-2 items-end'>
+                        Global Chat
+                        <span className='text-sm ml-1 font-light flex items-center gap-1'>
+                            <CgDanger />
+                            <p>
+                                Make sure to read the{' '}
+                                <Link to='/rules' className='underline decoration-white/40 underline-offset-4 hover:decoration-white/80'>rules</Link>
+                            </p>
+                        </span>
+                    </h1>
+                    <div className='overflow-y-auto h-[calc(100vh-18rem)] pt-5 px-5'>
+                        <div className='flex flex-col gap-3' ref={messageLogsRef}>
+                            {messageDataLogs.map((messageData, index) => (
+                                <MessageBubble
+                                    key={index}
+                                    messageData={messageData}
+                                    messageDataLogs={messageDataLogs}
+                                    username={authUser}
+                                />
+                            ))}
+                        </div>
+                        <MessageForm
+                            message={message}
+                            setMessage={setMessage}
+                            handleMessageSubmit={handleMessageSubmit}
+                        />
                     </div>
-                    <MessageForm
-                        message={message}
-                        setMessage={setMessage}
-                        handleMessageSubmit={handleMessageSubmit}
-                    />
                 </div>
             )}
         </>
