@@ -59,10 +59,8 @@ const Dashboard = () => {
     });
 
 
-    const IssuesData = eventsData.filter((item) => item.type === "IssuesEvent");
-    const PullRequestData = eventsData.filter(
-        (item) => item.type === "PullRequestEvent",
-    );
+    const issuesData = eventsData.filter(item => item.type === "IssuesEvent");
+    const pullRequestsData = eventsData.filter(item => item.type === "PullRequestEvent");
 
     return (
         <main className="p-5 pb-20 w-full">
@@ -95,43 +93,49 @@ const Dashboard = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="flex flex-col gap-2 p-2">
+                    <div className="flex flex-col gap-1.5 p-2">
                         <h1 className="font-extrabold text-xl">Pull Requests</h1>
                         <div className="overflow-y-auto">
-                            {PullRequestData.map((issue, index) => (
+                            {pullRequestsData.length > 0 ? pullRequestsData.map((pullRequest, index) => (
                                 <div
-                                    key={issue.id}
-                                    className="rounded-md border-gray-700 p-2 text-sm flex "
+                                    key={pullRequest.id}
+                                    className="p-2 flex text-sm gap-2"
                                 >
-                                    <span className="mr-2">{index + 1}</span>
-                                    <h1>{issue.payload.pull_request?.title}</h1>
+                                    <h1>{index + 1}</h1>
+                                    <h1>{pullRequest.payload.pull_request?.title}</h1>
                                 </div>
-                            ))}
+                            )) : (
+                                <div className='text-[#ededed]/60'>No Issues found!</div>
+                            )}
                         </div>
                     </div>
-                    <div className="flex flex-col gap-2 p-2 border border-gray-700 hover:border-[#ededed]/60">
+                    <div className="flex flex-col gap-1.5 p-2">
                         <h1 className="font-bold text-xl">Issues</h1>
                         <div className="overflow-y-auto">
-                            {IssuesData.map((issue) => (
+                            {issuesData.length > 0 ? issuesData.map((issue, index) => (
                                 <div
                                     key={issue.id}
                                     className="border rounded-md border-gray-700 p-2 text-sm"
                                 >
-                                    {issue.payload.issue?.title}
+                                    <h1>{index + 1}</h1>
+                                    <h1>{issue.payload.issue?.title}</h1>
                                 </div>
-                            ))}
+                            )) : (
+                                <div className='text-[#ededed]/60'>No Issues found!</div>
+                            )}
                         </div>
                     </div>
                     <div className="col-span-2 border border-gray-700 flex flex-col gap-2 p-2 hover:border-[#ededed]/60 rounded-lg">
                         <h1 className="font-extrabold text-2xl">Activity Feeds</h1>
                         <div className="overflow-y-auto">
-                            {eventsData.map((event) => (
-                                <ActivityCard event={event} />
+                            {eventsData.map((event, index) => (
+                                <ActivityCard key={index} event={event} />
                             ))}
                         </div>
                     </div>
                 </div>
             )}
+            {error && <div className='text-[#ededed]/60'>Some Error Occured :(</div>}
         </main>
     );
 };
