@@ -90,7 +90,7 @@ const updateRepo = async (req: Request, res: Response) => {
 //POST /api/repos/issues/create/:owner/:repo
 const createIssue = async (req: Request, res: Response) => {
     const { owner, repo } = req.params;
-    const { title, body, labels } = req.body;
+    const { title, body } = req.body;
     const { authorization } = req.headers;
 
     if (!authorization) {
@@ -104,7 +104,7 @@ const createIssue = async (req: Request, res: Response) => {
 
     // assignees: req.body.assignees || [],
     // milestone: req.body.milestone || null,
-    const issueData = { title, body, labels };
+    const issueData = { title, body };
 
     try {
         const response = await fetch(url, {
@@ -132,7 +132,7 @@ const createIssue = async (req: Request, res: Response) => {
 // PATCH /api/repos/issues/update/:owner/:repo
 const updateIssue = async (req: Request, res: Response) => {
     const { owner, repo, issue_number } = req.params;
-    const { title, body, state, labels } = req.body;
+    const { title, body, state } = req.body;
     const { authorization } = req.headers;
 
     if (!authorization) {
@@ -146,12 +146,7 @@ const updateIssue = async (req: Request, res: Response) => {
 
     // assignees: req.body.assignees || [],
     // milestone: req.body.milestone || null,
-    const issueData = {
-        title,
-        body,
-        state: state || "open", // can be open or closed
-        labels: labels || [],
-    };
+    const issueData = { title, body, state: state || "open" }; // can be open or closed
 
     try {
         const response = await fetch(url, {
