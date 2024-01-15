@@ -129,7 +129,7 @@ const createIssue = async (req: Request, res: Response) => {
     }
 }
 
-// PATCH /api/repos/issues/update/:owner/:repo
+// PATCH /api/repos/issues/update/:owner/:repo/:issue_number
 const updateIssue = async (req: Request, res: Response) => {
     const { owner, repo, issue_number } = req.params;
     const { title, body, state } = req.body;
