@@ -17,11 +17,15 @@ Before starting the Docker containers, create a `.env` file inside the `server` 
 - For client:
     ```env
     VITE_SERVER=http://localhost:3000
+    VITE_GITHUB_TOKEN=your_github_classic_token
     ```
+
+Replace `your_github_classic_token` with your actual GitHub classic token for authentication in the client.
 
 - For server:
     ```env
     SERVER_PORT=3000
+    CLIENT_PORT=5173
     JWT_SECRET=your_jwt_secret
     POSTGRES_USER=your_username
     POSTGRES_PASSWORD=your_password
