@@ -42,7 +42,7 @@ const Register = () => {
 
             if (res.ok) {
                 localStorage.setItem("token", data.token);
-                setAuthUser(data.userData.login);
+                setAuthUser(data.username);
                 socket.connect();
             }
 
