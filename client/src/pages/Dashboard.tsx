@@ -44,10 +44,10 @@ const Dashboard = () => {
         setEventsData(githubEventsData);
 
         setLoading(false);
-
         setError("");
       } catch (error) {
         if (error instanceof Error) {
+          setLoading(false);
           setError(error.message);
         }
       }
