@@ -9,7 +9,7 @@ import {
   updateIssue,
   lockIssue,
   unLockIssue,
-} from "../controllers/Repo";
+} from "../controllers/repo";
 
 const router = Router();
 
