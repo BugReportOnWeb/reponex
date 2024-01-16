@@ -107,8 +107,8 @@ const Dashboard = () => {
                   Repositories List
                 </h1>
                 <div className="overflow-y-auto">
-                  {repositories.map((repo) => (
-                    <RepoCard repo={repo} />
+                  {repositories.map((repo, index) => (
+                    <RepoCard key={index} repo={repo}  />
                   ))}
                 </div>
               </div>
