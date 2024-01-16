@@ -68,3 +68,13 @@ Replace `your_jwt_secret` with a secure secret for JWT authentication/authorizat
     ```bash
     npm run docker:down
     ```
+
+- To start Docker containers with rebuilding:
+    ```bash
+    npm run docker:up:build
+    ```
+
+- To build Docker images:
+    ```bash
+    npm run docker:build
+    ```
