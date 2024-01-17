@@ -54,4 +54,5 @@ const getGitHubUserEvents = async (username: string) => {
         throw error;
     }
 };
+
 export { getGitHubUser, getGitHubUserRepos, getGitHubUserEvents };

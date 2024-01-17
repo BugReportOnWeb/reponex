@@ -1,13 +1,20 @@
+// Core
 import { FormEvent, useContext, useEffect, useRef, useState } from "react";
-import MessageBubble from "../components/chat/MessageBubble";
-import MessageForm from "../components/chat/MessageForm";
-import { MessageData, MessageLogsContextType } from "../types/message";
-import { AuthUserContext } from "../context/AuthUserContext";
-import { AuthUserContextType } from "../types/auth";
-import socket from "../socket/socket";
-import { MessageLogsContext } from "../context/MessageLogsContext";
 import { Link } from "react-router-dom";
 import { CgDanger } from "react-icons/cg";
+
+// Context
+import { AuthUserContext } from "../context/AuthUserContext";
+import { MessageLogsContext } from "../context/MessageLogsContext";
+
+// Components
+import MessageBubble from "../components/chat/MessageBubble";
+import MessageForm from "../components/chat/MessageForm";
+
+// Extras
+import { MessageData, MessageLogsContextType } from "../types/message";
+import { AuthUserContextType } from "../types/auth";
+import socket from "../socket/socket";
 
 const Chat = () => {
     const [message, setMessage] = useState('');

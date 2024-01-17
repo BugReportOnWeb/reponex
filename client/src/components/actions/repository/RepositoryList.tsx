@@ -1,11 +1,11 @@
 import { repoData } from '../../../localStore/repoData';
-import { Repository } from '../../../types/repo';
+import { FilterRepo } from '../../../types/github';
 import RepoCard from './RepoCard';
 
 const RepositoryList = () => {
     const owner = repoData[0].owner.login;
     const repositories = repoData.map(repo => {
-        const repoDetails: Repository = {
+        const repoDetails: FilterRepo = {
             name: repo.name,
             url: repo.html_url,
             description: repo.description ?? undefined,
