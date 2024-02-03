@@ -79,7 +79,7 @@ Replace `your_jwt_secret` with a secure secret for JWT authentication/authorizat
     npm run docker:build
     ```
 
-# Contributors
+## Contributors
 
 <table>
     <tr>
@@ -95,3 +95,7 @@ Replace `your_jwt_secret` with a secure secret for JWT authentication/authorizat
         </td>
     </tr>
 </table>
+
+## License
+
+This project is licensed under the [GNU General Public License version 3.0](LICENSE.md). 
