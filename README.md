@@ -78,3 +78,20 @@ Replace `your_jwt_secret` with a secure secret for JWT authentication/authorizat
     ```bash
     npm run docker:build
     ```
+
+# Contributors
+
+<table>
+    <tr>
+        <td align="center">
+            <a href="https://github.com/BugReportOnWeb">
+                <img src="https://avatars.githubusercontent.com/u/96491001?v=4" width="100" alt="BugReportOnWeb's github profile image" /><br /><sub><b>BugReportOnWeb</b></sub>
+            </a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/falcon71181">
+                <img src="https://avatars.githubusercontent.com/u/48170773?v=4" width="100" alt="falcon71181's github profile image" /><br /><sub><b>falcon71181</b></sub>
+            </a>
+        </td>
+    </tr>
+</table>
